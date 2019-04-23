@@ -12,6 +12,7 @@
 		282F9206226EDDFB00222A5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 282F9204226EDDFB00222A5F /* Main.storyboard */; };
 		282F9208226EDDFD00222A5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 282F9207226EDDFD00222A5F /* Assets.xcassets */; };
 		282F920B226EDDFD00222A5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 282F9209226EDDFD00222A5F /* LaunchScreen.storyboard */; };
+		3376DE77847B76361624BF7C /* Pods_EbayApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39C6E621144D67A1A393F608 /* Pods_EbayApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,9 @@
 		282F9207226EDDFD00222A5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		282F920A226EDDFD00222A5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		282F920C226EDDFD00222A5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		39C6E621144D67A1A393F608 /* Pods_EbayApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EbayApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5354AACE7C1257DA0A1F0840 /* Pods-EbayApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EbayApp.debug.xcconfig"; path = "Target Support Files/Pods-EbayApp/Pods-EbayApp.debug.xcconfig"; sourceTree = "<group>"; };
+		CC4F45024E618C4D276A40FE /* Pods-EbayApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EbayApp.release.xcconfig"; path = "Target Support Files/Pods-EbayApp/Pods-EbayApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3376DE77847B76361624BF7C /* Pods_EbayApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,8 @@
 			children = (
 				282F91FF226EDDFB00222A5F /* EbayApp */,
 				282F91FE226EDDFB00222A5F /* Products */,
+				CB504E9CB9784F3713D55DA8 /* Pods */,
+				97B8853BCE1DE3533947A241 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +71,24 @@
 			path = EbayApp;
 			sourceTree = "<group>";
 		};
+		97B8853BCE1DE3533947A241 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				39C6E621144D67A1A393F608 /* Pods_EbayApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CB504E9CB9784F3713D55DA8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5354AACE7C1257DA0A1F0840 /* Pods-EbayApp.debug.xcconfig */,
+				CC4F45024E618C4D276A40FE /* Pods-EbayApp.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +96,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 282F920F226EDDFD00222A5F /* Build configuration list for PBXNativeTarget "EbayApp" */;
 			buildPhases = (
+				DEF10A9F3EE29E29B85425DE /* [CP] Check Pods Manifest.lock */,
 				282F91F9226EDDFB00222A5F /* Sources */,
 				282F91FA226EDDFB00222A5F /* Frameworks */,
 				282F91FB226EDDFB00222A5F /* Resources */,
+				C88773E4A17C861AEAFD5C08 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,6 +156,61 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C88773E4A17C861AEAFD5C08 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EbayApp/Pods-EbayApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/McPicker/McPicker.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftSpinner/SwiftSpinner.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/McPicker.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSpinner.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EbayApp/Pods-EbayApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DEF10A9F3EE29E29B85425DE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EbayApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		282F91F9226EDDFB00222A5F /* Sources */ = {
@@ -280,6 +362,7 @@
 		};
 		282F9210226EDDFD00222A5F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5354AACE7C1257DA0A1F0840 /* Pods-EbayApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -297,6 +380,7 @@
 		};
 		282F9211226EDDFD00222A5F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC4F45024E618C4D276A40FE /* Pods-EbayApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

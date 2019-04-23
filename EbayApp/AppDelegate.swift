@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  EbayApp
 //
-//  Created by Deyi Kong on 4/23/19.
-//  Copyright © 2019 Deyi Kong. All rights reserved.
+//  Created by on 4/23/19.
+//  Copyright © 2019 . All rights reserved.
 //
 
 import UIKit
