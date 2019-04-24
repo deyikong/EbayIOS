@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E9559195C1780A60006D7E79D569EBF5"
+               BlueprintIdentifier = "AC94E6CB90D54E85A150730CCF532D9D"
                BuildableName = "Pods_EbayApp.framework"
                BlueprintName = "Pods-EbayApp"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E9559195C1780A60006D7E79D569EBF5"
+            BlueprintIdentifier = "AC94E6CB90D54E85A150730CCF532D9D"
             BuildableName = "Pods_EbayApp.framework"
             BlueprintName = "Pods-EbayApp"
             ReferencedContainer = "container:Pods.xcodeproj">

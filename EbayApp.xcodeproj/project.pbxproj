@@ -12,6 +12,11 @@
 		282F9206226EDDFB00222A5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 282F9204226EDDFB00222A5F /* Main.storyboard */; };
 		282F9208226EDDFD00222A5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 282F9207226EDDFD00222A5F /* Assets.xcassets */; };
 		282F920B226EDDFD00222A5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 282F9209226EDDFD00222A5F /* LaunchScreen.storyboard */; };
+		282F9213226FE0D400222A5F /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282F9212226FE0D400222A5F /* CheckBox.swift */; };
+		286D7B9222700A86005A034A /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D7B9122700A86005A034A /* Item.swift */; };
+		286D7B94227021A0005A034A /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D7B93227021A0005A034A /* ItemTableViewCell.swift */; };
+		286D7B96227025AB005A034A /* ItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D7B95227025AA005A034A /* ItemTableViewController.swift */; };
+		286D7B982270568E005A034A /* WishHeart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D7B972270568E005A034A /* WishHeart.swift */; };
 		3376DE77847B76361624BF7C /* Pods_EbayApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39C6E621144D67A1A393F608 /* Pods_EbayApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +28,11 @@
 		282F9207226EDDFD00222A5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		282F920A226EDDFD00222A5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		282F920C226EDDFD00222A5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		282F9212226FE0D400222A5F /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		286D7B9122700A86005A034A /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		286D7B93227021A0005A034A /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		286D7B95227025AA005A034A /* ItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewController.swift; sourceTree = "<group>"; };
+		286D7B972270568E005A034A /* WishHeart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishHeart.swift; sourceTree = "<group>"; };
 		39C6E621144D67A1A393F608 /* Pods_EbayApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EbayApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5354AACE7C1257DA0A1F0840 /* Pods-EbayApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EbayApp.debug.xcconfig"; path = "Target Support Files/Pods-EbayApp/Pods-EbayApp.debug.xcconfig"; sourceTree = "<group>"; };
 		CC4F45024E618C4D276A40FE /* Pods-EbayApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EbayApp.release.xcconfig"; path = "Target Support Files/Pods-EbayApp/Pods-EbayApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -64,9 +74,14 @@
 				282F9200226EDDFB00222A5F /* AppDelegate.swift */,
 				282F9202226EDDFB00222A5F /* ViewController.swift */,
 				282F9204226EDDFB00222A5F /* Main.storyboard */,
+				286D7B95227025AA005A034A /* ItemTableViewController.swift */,
 				282F9207226EDDFD00222A5F /* Assets.xcassets */,
 				282F9209226EDDFD00222A5F /* LaunchScreen.storyboard */,
 				282F920C226EDDFD00222A5F /* Info.plist */,
+				282F9212226FE0D400222A5F /* CheckBox.swift */,
+				286D7B972270568E005A034A /* WishHeart.swift */,
+				286D7B9122700A86005A034A /* Item.swift */,
+				286D7B93227021A0005A034A /* ItemTableViewCell.swift */,
 			);
 			path = EbayApp;
 			sourceTree = "<group>";
@@ -85,7 +100,6 @@
 				5354AACE7C1257DA0A1F0840 /* Pods-EbayApp.debug.xcconfig */,
 				CC4F45024E618C4D276A40FE /* Pods-EbayApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -168,6 +182,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-EbayApp/Pods-EbayApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/McPicker/McPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSpinner/SwiftSpinner.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -178,6 +193,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/McPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSpinner.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -217,8 +233,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				286D7B982270568E005A034A /* WishHeart.swift in Sources */,
+				286D7B9222700A86005A034A /* Item.swift in Sources */,
 				282F9203226EDDFB00222A5F /* ViewController.swift in Sources */,
+				286D7B94227021A0005A034A /* ItemTableViewCell.swift in Sources */,
 				282F9201226EDDFB00222A5F /* AppDelegate.swift in Sources */,
+				286D7B96227025AB005A034A /* ItemTableViewController.swift in Sources */,
+				282F9213226FE0D400222A5F /* CheckBox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,10 @@ import UIKit
 import CoreLocation
 import McPicker
 import Toast_Swift
+import Alamofire
+import SwiftyJSON
+import SwiftSpinner
+
 
 class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
 
@@ -19,7 +23,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     @IBOutlet weak var customLocationSwitch: UISwitch!
     @IBOutlet weak var distanceBox: UITextField!
     
+    @IBOutlet weak var newCheckbox: CheckBox!
+    @IBOutlet weak var usedCheckbox: CheckBox!
+    @IBOutlet weak var unspecifiedCheckbox: CheckBox!
+    @IBOutlet weak var pickupCheckbox: CheckBox!
+    @IBOutlet weak var freeShippingCheckbox: CheckBox!
+    
+    
     let locationManager = CLLocationManager()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +41,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         distanceBox.delegate = self
         zipcodeBox.delegate = self
         
+        categoryBox.delegate = self
+        customLocationSwitch.isOn = false
+        customLocationSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
+        zipcodeBox.isHidden = true
     }
     
     func startReceivingLocationChanges() {
@@ -67,13 +83,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         })
     }
 
-    @IBAction func search(_ sender: UIButton) {
-        let validation = validate()
-        if (!validation.0)
-        {
-            self.view.makeToast(validation.1)
-        }
-    }
     @IBAction func clear(_ sender: UIButton) {
         showCategories()
     }
@@ -82,6 +91,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     {
         textField.resignFirstResponder()
         return true;
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField == categoryBox {
+            showCategories()
+            return false
+        }
+        return true
+    }
+    
+    @objc func switchChanged(mySwitch: UISwitch){
+        zipcodeBox.isHidden = !mySwitch.isOn
     }
     
     private func validate()->(Bool, String){
@@ -98,13 +119,46 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     }
     private func showCategories()
     {
-        McPicker.show(data: [["Kevin", "Lauren", "Kibby", "Stella"]]) {  [weak self] (selections: [Int : String]) -> Void in
+        McPicker.show(data: [["All","Art", "Baby", "Books", "Clothing, Shoes & Accessories", "Computers/Tablets & Networking", "Health & Beauty", "Music", "Video Games & Consoles"]]) {  [weak self] (selections: [Int : String]) -> Void in
             if let cat  = selections[0] {
                 self?.categoryBox.text = cat
             }
         }
     }
     
-    
+    private func makeRequest() -> Optional<Dictionary<String, Any>> {
+        let parametersData = [
+            "pageSize": "50",
+            "keywords": "apple",
+            "conditionNew":"",
+            "conditionUsed":"",
+            "conditionUnspecified":"",
+            "categoryId": "-1",
+            "LocalPickupOnly":"",
+            "FreeShippingOnly": "",
+            "distance": "10",
+            "zipCode": "77005"
+        ]
+
+        return parametersData
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is ItemTableViewController
+        {
+            let itemTableViewController = segue.destination as? ItemTableViewController
+            
+            //let validation = validate()
+            //        if (!validation.0)
+            //        {
+            //            self.view.makeToast(validation.1)
+            //        }
+            itemTableViewController?.requestData = makeRequest()
+            
+        }
+//        guard let itemTableViewController = segue.destination as? ItemTableViewController
+//            else{
+//                fatalError("Unexpected destination")
+//        }
+    }
 }
 
