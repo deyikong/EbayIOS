@@ -7,7 +7,7 @@ class WishHeart: UIButton {
     // Images
     let checkedImage = UIImage(named: "wishListFilled")! as UIImage
     let uncheckedImage = UIImage(named: "wishListEmpty")! as UIImage
-    var index = 0
+    var index = -1
     
     weak var delegate: UpdateWishListDelegate?
     // Bool property
@@ -18,7 +18,7 @@ class WishHeart: UIButton {
             } else {
                 self.setImage(uncheckedImage, for: UIControl.State.normal)
             }
-            if oldValue == !isChecked{
+            if index != -1 {
                 delegate?.updateItemStatus(index, remove: oldValue)
             }
         }

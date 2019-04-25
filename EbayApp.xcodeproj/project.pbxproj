@@ -17,6 +17,11 @@
 		286D7B94227021A0005A034A /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D7B93227021A0005A034A /* ItemTableViewCell.swift */; };
 		286D7B96227025AB005A034A /* ItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D7B95227025AA005A034A /* ItemTableViewController.swift */; };
 		286D7B982270568E005A034A /* WishHeart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D7B972270568E005A034A /* WishHeart.swift */; };
+		286D7B9A22713AEC005A034A /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D7B9922713AEC005A034A /* ItemDetailViewController.swift */; };
+		286D7B9C22715F4A005A034A /* InfoTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D7B9B22715F4A005A034A /* InfoTabViewController.swift */; };
+		286D7B9E22716039005A034A /* ShippingTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D7B9D22716039005A034A /* ShippingTabViewController.swift */; };
+		286D7BA022716056005A034A /* PhotosTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D7B9F22716056005A034A /* PhotosTabViewController.swift */; };
+		286D7BA22271606C005A034A /* SimilarTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286D7BA12271606C005A034A /* SimilarTabViewController.swift */; };
 		3376DE77847B76361624BF7C /* Pods_EbayApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39C6E621144D67A1A393F608 /* Pods_EbayApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +38,11 @@
 		286D7B93227021A0005A034A /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		286D7B95227025AA005A034A /* ItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewController.swift; sourceTree = "<group>"; };
 		286D7B972270568E005A034A /* WishHeart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishHeart.swift; sourceTree = "<group>"; };
+		286D7B9922713AEC005A034A /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
+		286D7B9B22715F4A005A034A /* InfoTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTabViewController.swift; sourceTree = "<group>"; };
+		286D7B9D22716039005A034A /* ShippingTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingTabViewController.swift; sourceTree = "<group>"; };
+		286D7B9F22716056005A034A /* PhotosTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTabViewController.swift; sourceTree = "<group>"; };
+		286D7BA12271606C005A034A /* SimilarTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarTabViewController.swift; sourceTree = "<group>"; };
 		39C6E621144D67A1A393F608 /* Pods_EbayApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EbayApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5354AACE7C1257DA0A1F0840 /* Pods-EbayApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EbayApp.debug.xcconfig"; path = "Target Support Files/Pods-EbayApp/Pods-EbayApp.debug.xcconfig"; sourceTree = "<group>"; };
 		CC4F45024E618C4D276A40FE /* Pods-EbayApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EbayApp.release.xcconfig"; path = "Target Support Files/Pods-EbayApp/Pods-EbayApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -74,6 +84,7 @@
 				282F9200226EDDFB00222A5F /* AppDelegate.swift */,
 				282F9202226EDDFB00222A5F /* ViewController.swift */,
 				282F9204226EDDFB00222A5F /* Main.storyboard */,
+				286D7B9922713AEC005A034A /* ItemDetailViewController.swift */,
 				286D7B95227025AA005A034A /* ItemTableViewController.swift */,
 				282F9207226EDDFD00222A5F /* Assets.xcassets */,
 				282F9209226EDDFD00222A5F /* LaunchScreen.storyboard */,
@@ -82,6 +93,10 @@
 				286D7B972270568E005A034A /* WishHeart.swift */,
 				286D7B9122700A86005A034A /* Item.swift */,
 				286D7B93227021A0005A034A /* ItemTableViewCell.swift */,
+				286D7B9B22715F4A005A034A /* InfoTabViewController.swift */,
+				286D7B9D22716039005A034A /* ShippingTabViewController.swift */,
+				286D7B9F22716056005A034A /* PhotosTabViewController.swift */,
+				286D7BA12271606C005A034A /* SimilarTabViewController.swift */,
 			);
 			path = EbayApp;
 			sourceTree = "<group>";
@@ -183,6 +198,9 @@
 				"${PODS_ROOT}/Target Support Files/Pods-EbayApp/Pods-EbayApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
 				"${BUILT_PRODUCTS_DIR}/McPicker/McPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSpinner/SwiftSpinner.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -194,6 +212,9 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/McPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSpinner.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -235,9 +256,14 @@
 			files = (
 				286D7B982270568E005A034A /* WishHeart.swift in Sources */,
 				286D7B9222700A86005A034A /* Item.swift in Sources */,
+				286D7B9E22716039005A034A /* ShippingTabViewController.swift in Sources */,
+				286D7B9C22715F4A005A034A /* InfoTabViewController.swift in Sources */,
+				286D7B9A22713AEC005A034A /* ItemDetailViewController.swift in Sources */,
 				282F9203226EDDFB00222A5F /* ViewController.swift in Sources */,
 				286D7B94227021A0005A034A /* ItemTableViewCell.swift in Sources */,
+				286D7BA022716056005A034A /* PhotosTabViewController.swift in Sources */,
 				282F9201226EDDFB00222A5F /* AppDelegate.swift in Sources */,
+				286D7BA22271606C005A034A /* SimilarTabViewController.swift in Sources */,
 				286D7B96227025AB005A034A /* ItemTableViewController.swift in Sources */,
 				282F9213226FE0D400222A5F /* CheckBox.swift in Sources */,
 			);

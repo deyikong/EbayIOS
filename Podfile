@@ -8,6 +8,7 @@ target 'EbayApp' do
     pod 'Toast-Swift', '~> 4.0.0'
     pod 'SwiftSpinner'
     pod 'AlamofireImage', '~> 3.5'
+    pod 'FBSDKShareKit'
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 

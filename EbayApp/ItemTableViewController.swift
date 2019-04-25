@@ -12,29 +12,28 @@ import AlamofireImage
 import SwiftSpinner
 import SwiftyJSON
 import Toast_Swift
+import FBSDKShareKit
 
 class ItemTableViewController: UITableViewController, UpdateWishListDelegate {
     func updateItemStatus(_ index: Int, remove: Bool) {
         print("\(index): \(remove)")
         if remove
         {
-            self.view.makeToast(items[index].title + " was removed from the wishList", duration: 3.0, position: .bottom)
+            self.navigationController?.view.makeToast(items[index].title + " was removed from the wishList", duration: 3.0, position: .bottom)
         }else{
-            self.view.makeToast(items[index].title + " was added to the wishList", duration: 3.0, position: .bottom)
+            self.navigationController?.view.makeToast(items[index].title + " was added to the wishList", duration: 3.0, position: .bottom)
         }
         
         let pathIndex = IndexPath(row: index, section: 0)
         items[index].inWishList = !remove
         print("in wish list: \(items[index].inWishList)")
-        self.tableView.beginUpdates()
-        self.tableView.reloadRows(at: [pathIndex], with: .automatic)
-        self.tableView.endUpdates();
     }
     
 
     private var items = [Item]()
     let baseUrl = "https://hw-09-238502.appspot.com/"
-
+    var updateEachItemWishList: UpdateEachItemWishList?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -57,14 +56,24 @@ class ItemTableViewController: UITableViewController, UpdateWishListDelegate {
                 response in
                 if response.result.value != nil{
                     let json = JSON(response.result.value!)
-                    for item in json["findItemsAdvancedResponse"][0]["searchResult"][0]["item"].arrayValue{
+                    let items = json["findItemsAdvancedResponse"][0]["searchResult"][0]["item"].arrayValue
+                    if items.count == 0
+                    {
+                        let alert = UIAlertController(title: "No Results", message: "Failed to fetch search results", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        self.present(alert, animated: true)
+                    }
+                    for item in items{
                         let item = Item(
+                            id:item["itemId"][0].stringValue,
                             imageUrl: item["galleryURL"][0].stringValue,
                             title: item["title"][0].stringValue,
                             price: Double(truncating: item["sellingStatus"][0]["currentPrice"][0]["__value__"].numberValue),
                             shippingCost: Double(truncating: item["shippingInfo"][0]["shippingServiceCost"][0]["__value__"].numberValue),
                             zipcode: Int(truncating: item["postalCode"][0].numberValue),
-                            conditionId: item["condition"][0]["conditionId"].stringValue)
+                            conditionId: item["condition"][0]["conditionId"].stringValue,
+                            viewItemUrl: item["viewItemURL"][0].stringValue
+                        )
                         let newIndexPath = IndexPath(row: self.items.count, section: 0)
                         self.items.append(item)
                         self.tableView.insertRows(at: [newIndexPath], with: .automatic)
@@ -92,6 +101,7 @@ class ItemTableViewController: UITableViewController, UpdateWishListDelegate {
         let item  = self.items[indexPath.row]
 
         print(self.items.count)
+        cell.wishHeart.index = -1
         cell.wishHeart.isChecked = item.inWishList
         cell.titleLabel.text = item.title
         Alamofire.request(item.imageUrl).responseImage { response in
@@ -159,14 +169,50 @@ class ItemTableViewController: UITableViewController, UpdateWishListDelegate {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-    }
-    */
+        super.prepare(for: segue, sender: sender)
+        switch(segue.identifier ?? "") {
+        case "ShowDetail":
+            guard let itemDetailViewController = segue.destination as? ItemDetailViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let selectedItemCell = sender as? ItemTableViewCell else {
+                fatalError("Unexpected sender: \(String(describing: sender))")
+            }
+            
+            guard let indexPath = tableView.indexPath(for: selectedItemCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            
+            let selectedItem = items[indexPath.row]
+            itemDetailViewController.item = selectedItem
+            let fbShareButton = UIBarButtonItem(image: UIImage(named: "facebook")! as UIImage, style: .plain, target: self, action: #selector(shareOnFacebook))
 
+            let wishListImage = selectedItem.inWishList ? (UIImage(named: "wishListFilled")! as UIImage) : (UIImage(named: "wishListEmpty")! as UIImage)
+
+            let updateWishListButton = UIBarButtonItem(image: wishListImage, style: .plain, target: self, action: #selector(updateEachItemStatus))
+
+//            let wishHeart = WishHeart()
+//            wishHeart.isChecked = selectedItem.inWishList
+//            let updateWishListButton = UIBarButtonItem(customView: wishHeart)
+            itemDetailViewController.navigationItem.rightBarButtonItems = [updateWishListButton, fbShareButton]
+            navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+            self.updateEachItemWishList = itemDetailViewController
+        default:
+            fatalError("Unexpected Segue Identifier; \(String(describing: segue.identifier))")
+        }
+    }
+    
+    @objc private func shareOnFacebook() {
+        updateEachItemWishList?.shareOnFacebook()
+    }
+    @objc private func updateEachItemStatus() {
+        updateEachItemWishList?.updateItemStatus()
+    }
 }

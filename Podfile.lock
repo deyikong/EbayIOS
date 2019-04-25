@@ -2,6 +2,16 @@ PODS:
   - Alamofire (4.8.0)
   - AlamofireImage (3.5.0):
     - Alamofire (~> 4.8)
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
+  - FBSDKCoreKit (4.39.0):
+    - Bolts (~> 1.9)
+  - FBSDKShareKit (4.39.0):
+    - FBSDKCoreKit
   - McPicker (2.0.0)
   - SwiftSpinner (1.6.2)
   - SwiftyJSON (4.2.0)
@@ -10,6 +20,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage (~> 3.5)
+  - FBSDKShareKit
   - McPicker (~> 2.0.0)
   - SwiftSpinner
   - SwiftyJSON (~> 4.0)
@@ -19,6 +30,9 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
+    - Bolts
+    - FBSDKCoreKit
+    - FBSDKShareKit
     - McPicker
     - SwiftSpinner
     - SwiftyJSON
@@ -27,11 +41,14 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   AlamofireImage: 1aea346f4dda2f6c67622fa5a89fcbb80d79cc16
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  FBSDKCoreKit: 1e3981faefab8c88edfaa9eecd94aab02d99a9bc
+  FBSDKShareKit: 5a0021c30abb64df9eeba87351dd8a627874543b
   McPicker: 1d11ad8c07c337a16dd9397e45f321125304cbb0
   SwiftSpinner: 3a4c6dea425e5a31b908a8b1dd5dcd1ad4d96340
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
 
-PODFILE CHECKSUM: fc9dac47102cc64ccd1ee57f8237717d94b1059d
+PODFILE CHECKSUM: 25390345c5936372451477dcc954f62ac99f91cc
 
 COCOAPODS: 1.6.1
