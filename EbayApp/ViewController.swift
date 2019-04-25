@@ -127,31 +127,64 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     }
     
     private func makeRequest() -> Optional<Dictionary<String, Any>> {
+        var category = "-1"
+        switch(categoryBox.text)
+        {
+        case "Art":
+            category = "550"
+        case "Baby":
+            category = "2984"
+        case "Books":
+            category = "267"
+        case "Clothing, Shoes & Accessories":
+            category = "11450"
+        case "Computers/Tablets & Networking":
+            category = "58058"
+        case "Health & Beauty":
+            category = "26395"
+        case "Music":
+            category = "11233"
+        case "Video Games & Consoles":
+            category = "1249"
+        default:
+            category = "-1"
+        }
+        if (!customLocationSwitch.isOn)
+        {
+            startReceivingLocationChanges()
+        }
         let parametersData = [
             "pageSize": "50",
-            "keywords": "apple",
-            "conditionNew":"",
-            "conditionUsed":"",
-            "conditionUnspecified":"",
-            "categoryId": "-1",
-            "LocalPickupOnly":"",
-            "FreeShippingOnly": "",
-            "distance": "10",
-            "zipCode": "77005"
-        ]
+            "keywords": keywordBox.text ?? "",
+            "conditionNew":newCheckbox.isChecked ? "New" : "",
+            "conditionUsed":usedCheckbox.isChecked ? "Used" : "",
+            "conditionUnspecified":unspecifiedCheckbox.isChecked ? "Unspecified" : "",
+            "categoryId": category,
+            "LocalPickupOnly": pickupCheckbox.isChecked ? "localPickup" : "",
+            "FreeShippingOnly": freeShippingCheckbox.isChecked ? "freeShipping": "",
+            "distance": distanceBox.text?.isEmpty ?? false ? "10" : distanceBox.text,
+            "zipCode": zipcodeBox.text?.isEmpty ?? false ? "77001" : zipcodeBox.text
+            ] as [String : Any]
 
+        print(parametersData)
         return parametersData
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        let validation = validate()
+        if (!validation.0)
+        {
+            self.view.makeToast(validation.1)
+            return false
+        }
+        return true
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is ItemTableViewController
         {
             let itemTableViewController = segue.destination as? ItemTableViewController
             
-            //let validation = validate()
-            //        if (!validation.0)
-            //        {
-            //            self.view.makeToast(validation.1)
-            //        }
+            
             itemTableViewController?.requestData = makeRequest()
             
         }
