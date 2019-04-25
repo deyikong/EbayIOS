@@ -18,7 +18,7 @@
 
 #import "FBSDKAppEvents.h"
 #import "FBSDKAppEvents+Internal.h"
-
+#import "FBSDKApplicationDelegate+Internal.h"
 #import <objc/runtime.h>
 
 #import <UIKit/UIApplication.h>
@@ -220,6 +220,7 @@ NSString *const FBSDKAppEventParameterShareTrayResult             = @"fb_share_t
 NSString *const FBSDKAppEventParameterLogTime = @"_logTime";
 NSString *const FBSDKAppEventParameterEventName = @"_eventName";
 NSString *const FBSDKAppEventParameterImplicitlyLogged = @"_implicitlyLogged";
+NSString *const FBSDKAppEventParameterInBackground = @"_inBackground";
 
 NSString *const FBSDKAppEventParameterLiveStreamingPrevStatus    = @"live_streaming_prev_status";
 NSString *const FBSDKAppEventParameterLiveStreamingStatus        = @"live_streaming_status";
@@ -659,23 +660,6 @@ static NSString *g_overrideAppID = nil;
     if ([FBSDKAppEvents flushBehavior] != FBSDKAppEventsFlushBehaviorExplicitOnly) {
       [[FBSDKAppEvents singleton] flushForReason:FBSDKAppEventsFlushReasonEagerlyFlushingEvent];
     }
-
-    // Update device push token for uninstall tracking
-    [FBSDKServerConfigurationManager loadServerConfigurationWithCompletionBlock:^(FBSDKServerConfiguration *serverConfiguration, NSError *error) {
-      if (serverConfiguration.uninstallTrackingEnabled) {
-        FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
-                                      initWithGraphPath:[NSString stringWithFormat:@"%@/%@",
-                                                         [FBSDKSettings appID], UNINSTALL_TRACKING_TOKEN_ENDPOINT]
-                                      parameters:@{
-                                                   UNINSTALL_TRACKING_DEVICE_TOKEN_KEY: deviceTokenString,
-                                                   UNINSTALL_TRACKING_PLATFORM_KEY: @"ios",
-                                                   // advertiserID could be 0s if user select limit ad tracking
-                                                   UNINSTALL_TRACKING_DEVICE_ID_KEY:  [FBSDKAppEventsUtility advertiserID] ?: @""
-                                                   }
-                                      HTTPMethod:@"POST"];
-        [request startWithCompletionHandler:nil];
-      }
-    }];
   }
 }
 
@@ -1050,6 +1034,7 @@ static NSString *g_overrideAppID = nil;
   }
 
   NSString *currentViewControllerName;
+  UIApplicationState applicationState;
   if ([NSThread isMainThread]) {
     // We only collect the view controller when on the main thread, as the behavior off
     // the main thread is unpredictable.  Besides, UI state for off-main-thread computations
@@ -1060,10 +1045,16 @@ static NSString *g_overrideAppID = nil;
     } else {
       currentViewControllerName = @"no_ui";
     }
+    applicationState = [UIApplication sharedApplication].applicationState;
   } else {
     currentViewControllerName = @"off_thread";
+    applicationState = [FBSDKApplicationDelegate applicationState];
   }
   eventDictionary[@"_ui"] = currentViewControllerName;
+
+  if (applicationState == UIApplicationStateBackground) {
+    eventDictionary[FBSDKAppEventParameterInBackground] = @"1";
+  }
 
   NSString *tokenString = [FBSDKAppEventsUtility tokenStringToUseFor:accessToken];
   NSString *appID = [self appID];
@@ -1177,7 +1168,7 @@ static NSString *g_overrideAppID = nil;
     }
 
     NSString *loggingEntry = nil;
-    if ([[FBSDKSettings loggingBehavior] containsObject:FBSDKLoggingBehaviorAppEvents]) {
+    if ([FBSDKSettings.loggingBehaviors containsObject:FBSDKLoggingBehaviorAppEvents]) {
       NSData *prettyJSONData = [NSJSONSerialization dataWithJSONObject:appEventsState.events
                                                                options:NSJSONWritingPrettyPrinted
                                                                  error:NULL];

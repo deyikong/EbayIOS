@@ -1,6 +1,6 @@
 PODS:
-  - Alamofire (4.8.0)
-  - AlamofireImage (3.5.0):
+  - Alamofire (4.8.2)
+  - AlamofireImage (3.5.2):
     - Alamofire (~> 4.8)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
@@ -8,22 +8,22 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
-  - FBSDKCoreKit (4.39.0):
+  - FBSDKCoreKit (4.44.1):
     - Bolts (~> 1.9)
-  - FBSDKShareKit (4.39.0):
+  - FBSDKShareKit (4.44.1):
     - FBSDKCoreKit
-  - McPicker (2.0.0)
+  - McPicker (2.0.1)
   - SwiftSpinner (1.6.2)
-  - SwiftyJSON (4.2.0)
+  - SwiftyJSON (5.0.0)
   - Toast-Swift (4.0.1)
 
 DEPENDENCIES:
   - Alamofire
-  - AlamofireImage (~> 3.5)
+  - AlamofireImage
   - FBSDKShareKit
   - McPicker (~> 2.0.0)
   - SwiftSpinner
-  - SwiftyJSON (~> 4.0)
+  - SwiftyJSON
   - Toast-Swift (~> 4.0.0)
 
 SPEC REPOS:
@@ -39,16 +39,16 @@ SPEC REPOS:
     - Toast-Swift
 
 SPEC CHECKSUMS:
-  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
-  AlamofireImage: 1aea346f4dda2f6c67622fa5a89fcbb80d79cc16
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  FBSDKCoreKit: 1e3981faefab8c88edfaa9eecd94aab02d99a9bc
-  FBSDKShareKit: 5a0021c30abb64df9eeba87351dd8a627874543b
-  McPicker: 1d11ad8c07c337a16dd9397e45f321125304cbb0
+  FBSDKCoreKit: a823ae35bdb60ebb8d7a7e51abe7c5d87d2bfced
+  FBSDKShareKit: 526d4cfb713d24855fa23d0dd74e191accd3a720
+  McPicker: a0a6b8ece8f1642e05401a29867463aba501188b
   SwiftSpinner: 3a4c6dea425e5a31b908a8b1dd5dcd1ad4d96340
-  SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
 
-PODFILE CHECKSUM: 25390345c5936372451477dcc954f62ac99f91cc
+PODFILE CHECKSUM: cb5125cc5f12ba60f6db31a21b162b32e93fccf7
 
 COCOAPODS: 1.6.1

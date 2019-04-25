@@ -1,10 +1,3 @@
-//
-//  ItemTableViewCell.swift
-//  EbayApp
-//
-//  Created by Deyi Kong on 4/23/19.
-//  Copyright © 2019 Deyi Kong. All rights reserved.
-//
 
 import UIKit
 
@@ -18,9 +11,12 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet var conditionLabel: UILabel!
     @IBOutlet var wishHeart: WishHeart!
     
+    var hideWishButton = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        wishHeart?.isHidden = hideWishButton
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

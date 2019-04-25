@@ -1,11 +1,3 @@
-//
-//  ItemTableViewController.swift
-//  EbayApp
-//
-//  Created by Deyi Kong on 4/24/19.
-//  Copyright © 2019 Deyi Kong. All rights reserved.
-//
-
 import UIKit
 import Alamofire
 import AlamofireImage
@@ -19,12 +11,14 @@ class ItemTableViewController: UITableViewController, UpdateWishListDelegate {
         print("\(index): \(remove)")
         if remove
         {
+            WishItems.items = WishItems.items.filter {$0.id != items[index].id}
             self.navigationController?.view.makeToast(items[index].title + " was removed from the wishList", duration: 3.0, position: .bottom)
         }else{
+            WishItems.items = WishItems.items.filter {$0.id != items[index].id}
+            WishItems.items.append(items[index])
             self.navigationController?.view.makeToast(items[index].title + " was added to the wishList", duration: 3.0, position: .bottom)
         }
-        
-        let pathIndex = IndexPath(row: index, section: 0)
+                let pathIndex = IndexPath(row: index, section: 0)
         items[index].inWishList = !remove
         print("in wish list: \(items[index].inWishList)")
     }
@@ -64,6 +58,14 @@ class ItemTableViewController: UITableViewController, UpdateWishListDelegate {
                         self.present(alert, animated: true)
                     }
                     for item in items{
+                        var wished = false
+                        for it in WishItems.items{
+                            if it.id == item["itemId"][0].stringValue {
+                                wished = true
+                                break
+                            }
+                        }
+                        
                         let item = Item(
                             id:item["itemId"][0].stringValue,
                             imageUrl: item["galleryURL"][0].stringValue,
@@ -72,7 +74,8 @@ class ItemTableViewController: UITableViewController, UpdateWishListDelegate {
                             shippingCost: Double(truncating: item["shippingInfo"][0]["shippingServiceCost"][0]["__value__"].numberValue),
                             zipcode: Int(truncating: item["postalCode"][0].numberValue),
                             conditionId: item["condition"][0]["conditionId"].stringValue,
-                            viewItemUrl: item["viewItemURL"][0].stringValue
+                            viewItemUrl: item["viewItemURL"][0].stringValue,
+                            inWishList: wished
                         )
                         let newIndexPath = IndexPath(row: self.items.count, section: 0)
                         self.items.append(item)

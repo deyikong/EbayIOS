@@ -18,8 +18,15 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FBSDKCodelessIndexer : NSObject
+NS_ASSUME_NONNULL_BEGIN
 
-+ (NSString *)extInfo;
+extern NSString *const FBSDKShareExtensionParamAppID; // application identifier string
+extern NSString *const FBSDKShareExtensionParamHashtags; // array of hashtag strings (max 1)
+extern NSString *const FBSDKShareExtensionParamQuotes; // array of quote strings (max 1)
+extern NSString *const FBSDKShareExtensionParamOGData; // dictionary of Open Graph data
 
-@end
+NSString *_Nullable FBSDKShareExtensionInitialText(NSString *_Nullable appID,
+                                                   NSString *_Nullable hashtag,
+                                                   NSString *_Nullable jsonString);
+
+NS_ASSUME_NONNULL_END

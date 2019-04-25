@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  EbayApp
-//
-//  Created by on 4/23/19.
-//  Copyright © 2019 . All rights reserved.
-//
 
 import UIKit
 import CoreLocation
@@ -15,7 +8,7 @@ import SwiftyJSON
 import SwiftSpinner
 
 
-class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var zipcodeBox: UITextField!
     @IBOutlet weak var categoryBox: UITextField!
@@ -28,11 +21,37 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     @IBOutlet weak var unspecifiedCheckbox: CheckBox!
     @IBOutlet weak var pickupCheckbox: CheckBox!
     @IBOutlet weak var freeShippingCheckbox: CheckBox!
+    @IBOutlet weak var searchView: UIView!
+    @IBOutlet weak var myTableView: UITableView!
+    @IBOutlet weak var noItemLabel: UILabel!
     
     
     let locationManager = CLLocationManager()
 
 
+    @IBAction func indexChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex
+        {
+        case 0:
+            myTableView.isHidden = true
+            searchView.isHidden = false
+            print("SEA")
+        case 1:
+            if WishItems.items.count != 0
+            {
+                noItemLabel.isHidden = true
+                myTableView.isHidden = false
+                myTableView.reloadData()
+                myTableView.setNeedsLayout()
+            }else{
+                noItemLabel.isHidden = false
+            }
+            searchView.isHidden = true
+                print("WIS")
+        default:
+            break
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -45,8 +64,40 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
         customLocationSwitch.isOn = false
         customLocationSwitch.addTarget(self, action: #selector(switchChanged), for: UIControl.Event.valueChanged)
         zipcodeBox.isHidden = true
+        myTableView.dataSource = self
+        myTableView.delegate = self
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return WishItems.items.count
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("worrrks")
+        let cellIdentifier = "ItemTableViewCellWithoutHeart"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ItemTableViewCell else {
+            fatalError("The dequeued cell is not an instance of ItemTableViewCell.")
+        }
+        
+        let item  = WishItems.items[indexPath.row]
+        
+        cell.titleLabel.text = item.title
+        Alamofire.request(item.imageUrl).responseImage { response in
+            if let image = response.result.value {
+                print("image downloaded: \(image)")
+                cell.thumbnailView.image = image
+            }
+        }
+        cell.priceLabel.text = "$" + String(item.price)
+        if item.shippingCost == 0{
+            cell.shippingLabel.text = "FREE SHIPPING"
+        }else{
+            cell.shippingLabel.text = String(item.shippingCost)
+        }
+        cell.zipcodeLabel.text = String(item.zipcode)
+        cell.conditionLabel.text = item.condition
+        cell.hideWishButton = true
+        return cell
+    }
     func startReceivingLocationChanges() {
         let authorizationStatus = CLLocationManager.authorizationStatus()
         if authorizationStatus != .authorizedWhenInUse && authorizationStatus != .authorizedAlways {
@@ -84,7 +135,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
     }
 
     @IBAction func clear(_ sender: UIButton) {
-        showCategories()
+        keywordBox.text = ""
+        categoryBox.text = ""
+        newCheckbox.isChecked = false
+        usedCheckbox.isChecked = false
+        unspecifiedCheckbox.isChecked = false
+        pickupCheckbox.isChecked = false
+        freeShippingCheckbox.isChecked = false
+        distanceBox.text = ""
+        zipcodeBox.text = ""
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
@@ -162,8 +221,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITextFieldDe
             "categoryId": category,
             "LocalPickupOnly": pickupCheckbox.isChecked ? "localPickup" : "",
             "FreeShippingOnly": freeShippingCheckbox.isChecked ? "freeShipping": "",
-            "distance": distanceBox.text?.isEmpty ?? false ? "10" : distanceBox.text,
-            "zipCode": zipcodeBox.text?.isEmpty ?? false ? "77001" : zipcodeBox.text
+            "distance": distanceBox.text?.isEmpty ?? false ? "10" : distanceBox.text!,
+            "zipCode": zipcodeBox.text?.isEmpty ?? false ? "77001" : zipcodeBox.text!
             ] as [String : Any]
 
         print(parametersData)

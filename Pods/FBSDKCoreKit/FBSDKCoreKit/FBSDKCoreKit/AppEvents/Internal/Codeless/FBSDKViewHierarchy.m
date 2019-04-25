@@ -231,9 +231,14 @@ typedef NS_ENUM(NSUInteger, FBCodelessClassBitmask) {
   NSMutableDictionary *componentInfo = [NSMutableDictionary dictionary];
   componentInfo[CODELESS_MAPPING_CLASS_NAME_KEY] = NSStringFromClass([obj class]);
 
-  NSString *text = [FBSDKViewHierarchy getText:obj];
-  if (text) {
-    componentInfo[CODELESS_MAPPING_TEXT_KEY] = text;
+  if (![FBSDKViewHierarchy isUserInputView:obj]) {
+    NSString *text = [FBSDKViewHierarchy getText:obj];
+    if (text) {
+      componentInfo[CODELESS_MAPPING_TEXT_KEY] = text;
+    }
+  } else {
+    componentInfo[CODELESS_MAPPING_TEXT_KEY] = @"";
+    componentInfo[CODELESS_MAPPING_IS_USER_INPUT_KEY] = @YES;
   }
 
   NSString *hint = [FBSDKViewHierarchy getHint:obj];
@@ -373,25 +378,6 @@ typedef NS_ENUM(NSUInteger, FBCodelessClassBitmask) {
     text = attributedText.string;
   }
 
-  if ([obj conformsToProtocol:@protocol(UITextInput)]) {
-    id<UITextInput> input = (id<UITextInput>)obj;
-    if (input.secureTextEntry) {
-      text = nil;
-    } else {
-      switch (input.keyboardType) {
-        case UIKeyboardTypePhonePad:
-        case UIKeyboardTypeEmailAddress:
-          text = nil;
-          break;
-        default: break;
-      }
-    }
-  }
-
-  if ([FBSDKAppEventsUtility isSensitiveUserData:text]) {
-    return nil;
-  }
-
   return text.length > 0 ? text : nil;
 }
 
@@ -479,6 +465,29 @@ typedef NS_ENUM(NSUInteger, FBCodelessClassBitmask) {
   return bitmask;
 }
 
++ (BOOL)isUserInputView:(NSObject *)obj
+{
+  if (obj && [obj conformsToProtocol:@protocol(UITextInput)]) {
+    id<UITextInput> input = (id<UITextInput>)obj;
+    if ([input respondsToSelector:@selector(isSecureTextEntry)]
+        && input.secureTextEntry) {
+      return YES;
+    } else {
+      if ([input respondsToSelector:@selector(keyboardType)]) {
+        switch (input.keyboardType) {
+          case UIKeyboardTypePhonePad:
+          case UIKeyboardTypeEmailAddress:
+            return YES;
+          default: break;
+        }
+      }
+    }
+  }
+
+  NSString *text = [FBSDKViewHierarchy getText:obj];
+  return text && [FBSDKAppEventsUtility isSensitiveUserData:text];
+}
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
 + (BOOL)isRCTButton:(UIView *)view
@@ -492,13 +501,16 @@ typedef NS_ENUM(NSUInteger, FBCodelessClassBitmask) {
       [view respondsToSelector:@selector(reactTagAtPoint:)] &&
       [view respondsToSelector:@selector(reactTag)] &&
       view.userInteractionEnabled) {
-    NSNumber *reactTag = [view performSelector:@selector(reactTagAtPoint:)
-                                    withObject:[NSValue valueWithCGPoint:view.frame.origin]];
-    // We get the reactTag at upper left of the view and thus check with its first subview
-    UIView *subView = view.subviews.firstObject;
-    NSNumber *subViewReactTag = [FBSDKViewHierarchy getViewReactTag:subView];
-    if (reactTag != nil && subViewReactTag != nil && ![subView isKindOfClass:classRCTView] && [reactTag isEqualToNumber:subViewReactTag]) {
-      return YES;
+    // We check all its subviews locations and the view is clickable if there exists one that mathces reactTagAtPoint
+    for (UIView *subview in view.subviews) {
+      if (subview && ![subview isKindOfClass:classRCTView]) {
+        NSNumber *reactTag = [view performSelector:@selector(reactTagAtPoint:)
+                                        withObject:[NSValue valueWithCGPoint:subview.frame.origin]];
+        NSNumber *subviewReactTag = [FBSDKViewHierarchy getViewReactTag:subview];
+        if (reactTag != nil && subviewReactTag != nil && [reactTag isEqualToNumber:subviewReactTag]) {
+          return YES;
+        }
+      }
     }
   }
 
